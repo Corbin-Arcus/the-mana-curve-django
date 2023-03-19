@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 function CardsPage(){
     const dispatch = useDispatch()
     const card = useSelector(state => state.card)
-    console.log(card)
+    const cardsArr = card.cards
     useEffect(() => {
         dispatch(cardActions.getAllCards())
     }, [dispatch])
@@ -14,9 +14,11 @@ function CardsPage(){
     return(
         <>
             <h1>All Cards in the database</h1>
-            {/* {card?.map(card => {
-                <h1>{card.card_name}</h1>
-            })} */}
+            {cardsArr?.map(card =>
+                <>
+                    <h1>{card.card_name}</h1>
+                </>
+            )}
         </>
     )
 }
