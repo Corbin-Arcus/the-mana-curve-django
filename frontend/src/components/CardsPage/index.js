@@ -5,8 +5,8 @@ import { Link } from 'react-router-dom'
 
 function CardsPage(){
     const dispatch = useDispatch()
-    const card = useSelector(state => state.card)
-    const cardsArr = card.cards
+    const cards = useSelector(state => state.card)
+    const cardsArr = cards.cards
     useEffect(() => {
         dispatch(cardActions.getAllCards())
     }, [dispatch])
@@ -16,7 +16,7 @@ function CardsPage(){
             <h1>All Cards in the database</h1>
             {cardsArr?.map(card =>
                 <>
-                    <h1>{card.card_name}</h1>
+                    <Link to={`/cards/${card.id}`}><img src={card?.card_image} alt={card?.card_name}></img></Link>
                 </>
             )}
         </>

@@ -1,5 +1,6 @@
-const GET_CARD = 'card/GET_CARD'
+const GET_CARDS = 'card/GET_CARD'
 const ADD_CARD = 'card/ADD_CARD'
+// const GET_CARD = 'card/GET_CARD'
 
 const addCard = (card) => {
     return{
@@ -11,10 +12,17 @@ const addCard = (card) => {
 
 const getCards = (cards) => {
     return{
-        type: GET_CARD,
+        type: GET_CARDS,
         payload: cards
     }
 }
+
+// const getCard = (card) => {
+//     return{
+//         type: GET_CARD,
+//         payload: card
+//     }
+// }
 
 export const addACard = (cardName) => async (dispatch) => {
     const card = await fetch(`https://api.scryfall.com/cards/named?fuzzy=${cardName}`)
@@ -71,16 +79,21 @@ export const getAllCards = () => async (dispatch) => {
     dispatch(getCards(data))
 }
 
+// export const getOneCard = (id) => async (dispatch) => {
+//     const res = await fetch(`http://localhost:8000/api/cards/${id}`)
+//     const data = await res.json()
+//     dispatch(getCard(data))
+// }
+
 const cardReducer = (state = {}, action) => {
     let newState;
     switch (action.type) {
         case ADD_CARD:
             newState = {...state, ...action.payload}
             return newState
-        case GET_CARD:
+        case GET_CARDS:
             let cards = Object.values(action.payload)
             newState = {...state, cards}
-            // console.log(newState)
             return newState
         default:
             return state
